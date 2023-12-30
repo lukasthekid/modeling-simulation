@@ -387,7 +387,7 @@
 						<Parameter>
 							<Name><![CDATA[interarrivalTime]]></Name>
 							<Value Class="CodeUnitValue">
-								<Code><![CDATA[poisson(1.6)]]></Code>
+								<Code><![CDATA[poisson(1)]]></Code>
 								<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
 							</Value>
 						</Parameter>
@@ -412,7 +412,7 @@
 						<Parameter>
 							<Name><![CDATA[maxArrivals]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[1650]]></Code>
+								<Code><![CDATA[2250]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -733,7 +733,7 @@
 						<Parameter>
 							<Name><![CDATA[interarrivalTime]]></Name>
 							<Value Class="CodeUnitValue">
-								<Code><![CDATA[poisson(2.2)]]></Code>
+								<Code><![CDATA[poisson(1.5)]]></Code>
 								<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
 							</Value>
 						</Parameter>
@@ -758,7 +758,7 @@
 						<Parameter>
 							<Name><![CDATA[maxArrivals]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[1100]]></Code>
+								<Code><![CDATA[1500]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -1378,7 +1378,7 @@
 					<LineColor>-16744448</LineColor>
 					<Points>
 						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>0</X><Y>360</Y></Point>
+						<Point><X>0</X><Y>350</Y></Point>
 					</Points>
 				</TargetLine>
 				<TargetLine>
