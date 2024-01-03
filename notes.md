@@ -69,24 +69,24 @@
   * number of queues:  
     according to expected load on queues  
     $n_q \cdot \frac{v_{st} \cdot t_{st}}{v_{std} \cdot t_{std} + v_{st} \cdot t_{st}} = 7 \cdot \frac{2400 \cdot 3}{3600 \cdot 6 + 2400 \cdot 3} = 7 \cdot 0.25$  
-    $n_{qst}$ - season ticket priority queues
+    $n_{qst}$ - number of season ticket priority queues  
     $n_q$ - total number of queues  
-    $v_{std}$ - standard visitor  
-    $v_{st}$ - season ticket visitor  
+    $v_{std}$ - number of standard visitors  
+    $v_{st}$ - number of season ticket visitors  
     $t_{std}$ - average check-in time standard visitor  
     $t_{st}$ - average check-in time season ticket visitor  
     we round up, so that **2** of the 7 queues are priority queues for season ticket holders only
-  * implementation: send standard visitors to the shortest of the first 5
+  * implementation: send standard visitors to the shortest of the first 5 queues
     ```
     security.getQueues().subList(0, 5).stream().min(Comparator.comparingInt(q -> q.size())).get();
     ```
-  * problem in AnyLogic-model: Agents seem to decide for a queue right when spawning instead of near to the queues. Therefore, a often a chosen queue has turned into the longest queue, when the agent has arrived at the queue.
+  * problem in AnyLogic-model: Agents seem to decide for a queue right when spawning instead of near to the queues. Therefore, often a chosen queue has turned into the longest queue, when the agent has arrived at the queue.
   * results are determined with Monte-Carlo-Simulation with 10 iterations and averaged
-* implementation of late arrival: Delaying the spawning of agents from a PedSource does not seem to be possible. An alternative idea was to discard each visitor until a certain timestep. For this a selectOutput-node was used with conditions like
+* implementation of late arrival: Delaying the spawning of agents from a PedSource does not seem to be possible. An alternative idea is to discard each visitor until a certain timestep. For this a selectOutput-node was used with a condition like
     ```
     time() > 1800 || pedSink2.countPeds() > 800
     ```
-    which sends each visitor directly to a alternative sink until the delay time has passed (the condition also makes sure that at least 2400 agents remain).
+    which sends each visitor directly to an alternative sink until the delay time has passed (the condition also makes sure that at least 2400 agents remain).
     The discarded visitors need to be considered in the total agents emitted by the source and the interarrival rate. The parameters for the subscriber-source are adapted as follows:
     * subscribers arriving earliest 1.5h before:
       * interarrival rate: **possion(2.25)**
@@ -115,10 +115,3 @@
 
 ->
 * 
-
-
-## ToDos
-* 2x/3x speedup simulation (arrival rates, pedestrian speeds, check-in times)
-* (task 4) how to prioritize season ticket holders?
-* (task 5) simulate impatient visitor
-* report
