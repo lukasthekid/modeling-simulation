@@ -170,6 +170,46 @@
 					</ComputationTimeCode>
 					<ComputationDate>1704268800000</ComputationDate>
 				</Output>
+				<Output>
+					<Id>1704733314498</Id>
+					<Name><![CDATA[meanWaitTimeStandard]]></Name>
+					<X>210</X><Y>990</Y>
+					<Label><X>15</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Type><![CDATA[double]]></Type>
+					<UnitType><![CDATA[NONE]]></UnitType>
+					<Value Class="CodeValue">
+						<Code><![CDATA[queueTimesStandard.getYMean()]]></Code>
+					</Value>
+					<ComputationMoment>AT_MODEL_TIME</ComputationMoment>
+					<ComputationTimeCode Class="CodeUnitValue">
+						<Code><![CDATA[7200]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</ComputationTimeCode>
+					<ComputationDate>1704268800000</ComputationDate>
+				</Output>
+				<Output>
+					<Id>1704734631961</Id>
+					<Name><![CDATA[meanWaitTimeSubscriber]]></Name>
+					<X>210</X><Y>1030</Y>
+					<Label><X>15</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Type><![CDATA[double]]></Type>
+					<UnitType><![CDATA[NONE]]></UnitType>
+					<Value Class="CodeValue">
+						<Code><![CDATA[queueTimesSubscriber.getYMean()]]></Code>
+					</Value>
+					<ComputationMoment>AT_MODEL_TIME</ComputationMoment>
+					<ComputationTimeCode Class="CodeUnitValue">
+						<Code><![CDATA[7200]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</ComputationTimeCode>
+					<ComputationDate>1704268800000</ComputationDate>
+				</Output>
 			</Outputs>
 			<Connectors>
 				<Connector>
@@ -460,6 +500,50 @@
 					<Discrete>true</Discrete>
 					<ValueCode><![CDATA[finishedChecks.traffic()]]></ValueCode>
 				</Statistics>
+    			<DataSet>
+					<Id>1704732974516</Id>
+					<Name><![CDATA[queueTimesStandard]]></Name>
+					<X>210</X><Y>1120</Y>
+					<Label><X>15</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>false</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<AutoUpdate>false</AutoUpdate>
+					<OccurrenceAtTime>true</OccurrenceAtTime>
+					<OccurrenceDate>1704787200000</OccurrenceDate>
+					<OccurrenceTime Class="CodeUnitValue">
+						<Code><![CDATA[0]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</OccurrenceTime>
+					<RecurrenceCode Class="CodeUnitValue">
+						<Code><![CDATA[1]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</RecurrenceCode>
+					<FreezeXAxis>true</FreezeXAxis>
+					<SamplesToKeep>12000</SamplesToKeep>
+				</DataSet>
+    			<DataSet>
+					<Id>1704734312733</Id>
+					<Name><![CDATA[queueTimesSubscriber]]></Name>
+					<X>210</X><Y>1160</Y>
+					<Label><X>15</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>false</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<AutoUpdate>false</AutoUpdate>
+					<OccurrenceAtTime>true</OccurrenceAtTime>
+					<OccurrenceDate>1704787200000</OccurrenceDate>
+					<OccurrenceTime Class="CodeUnitValue">
+						<Code><![CDATA[0]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</OccurrenceTime>
+					<RecurrenceCode Class="CodeUnitValue">
+						<Code><![CDATA[1]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</RecurrenceCode>
+					<FreezeXAxis>true</FreezeXAxis>
+					<SamplesToKeep>12000</SamplesToKeep>
+				</DataSet>
 			</AnalysisData>
 			<AgentLinks>
 				<AgentLink>
@@ -780,6 +864,9 @@
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[onExit]]></Name>
+							<Value Class="CodeValue">
+								<Code><![CDATA[queueTimesStandard.add(time() - ped.getBlockEnterTime())]]></Code>
+							</Value>
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[onCancel]]></Name>
@@ -881,7 +968,7 @@
 						<Parameter>
 							<Name><![CDATA[interarrivalTime]]></Name>
 							<Value Class="CodeUnitValue">
-								<Code><![CDATA[poisson(1.5)]]></Code>
+								<Code><![CDATA[poisson(2.25)]]></Code>
 								<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
 							</Value>
 						</Parameter>
@@ -915,7 +1002,7 @@
 						<Parameter>
 							<Name><![CDATA[maxArrivals]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[4800]]></Code>
+								<Code><![CDATA[3200]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -1123,6 +1210,9 @@
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[onExit]]></Name>
+							<Value Class="CodeValue">
+								<Code><![CDATA[queueTimesSubscriber.add(time() - ped.getBlockEnterTime())]]></Code>
+							</Value>
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[onCancel]]></Name>
@@ -1590,7 +1680,7 @@
 						<Parameter>
 							<Name><![CDATA[condition]]></Name>
 							<Value Class="CodeValue">
-								<Code><![CDATA[time() > 3600 || pedSink2.countPeds() > 2400]]></Code>
+								<Code><![CDATA[time() > 1800 || pedSink2.countPeds() > 2400]]></Code>
 							</Value>
 						</Parameter>
 						<Parameter>
@@ -1797,7 +1887,7 @@
 					</Points>
 				</PolygonNode>
 				<ServicePoint>
-					<Id>1702484550848</Id>
+					<Id>1704731335574</Id>
 					<Name><![CDATA[servicePoint]]></Name>
 					<X>600.109</X><Y>190</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1811,7 +1901,7 @@
 					<Rotation>0</Rotation>
 				</ServicePoint>
 				<ServicePoint>
-					<Id>1702484550852</Id>
+					<Id>1704731335579</Id>
 					<Name><![CDATA[servicePoint1]]></Name>
 					<X>600.109</X><Y>209.995</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1825,7 +1915,7 @@
 					<Rotation>0</Rotation>
 				</ServicePoint>
 				<ServicePoint>
-					<Id>1702484550856</Id>
+					<Id>1704731335583</Id>
 					<Name><![CDATA[servicePoint2]]></Name>
 					<X>600.109</X><Y>229.99</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1839,7 +1929,7 @@
 					<Rotation>0</Rotation>
 				</ServicePoint>
 				<ServicePoint>
-					<Id>1702484550860</Id>
+					<Id>1704731335588</Id>
 					<Name><![CDATA[servicePoint3]]></Name>
 					<X>600.109</X><Y>249.986</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1853,7 +1943,7 @@
 					<Rotation>0</Rotation>
 				</ServicePoint>
 				<ServicePoint>
-					<Id>1702488598739</Id>
+					<Id>1704731335592</Id>
 					<Name><![CDATA[servicePoint4]]></Name>
 					<X>600.109</X><Y>269.981</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1866,123 +1956,8 @@
 					<QueueChoicePolicy>CLOSEST_QUEUE_STRICT</QueueChoicePolicy>
 					<Rotation>0</Rotation>
 				</ServicePoint>
-				<QueueLine>
-					<Id>1704207572233</Id>
-					<Name><![CDATA[serpentineQueue]]></Name>
-					<X>520</X><Y>190</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
-					<Reversed>false</Reversed>
-					<LimitedCapacity>false</LimitedCapacity>
-					<Capacity><![CDATA[10]]></Capacity>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
-				<QueueLine>
-					<Id>1704207572235</Id>
-					<Name><![CDATA[serpentineQueue1]]></Name>
-					<X>520</X><Y>209.249</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
-					<Reversed>false</Reversed>
-					<LimitedCapacity>false</LimitedCapacity>
-					<Capacity><![CDATA[10]]></Capacity>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
-				<QueueLine>
-					<Id>1704207572237</Id>
-					<Name><![CDATA[serpentineQueue2]]></Name>
-					<X>520</X><Y>229.512</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
-					<Reversed>false</Reversed>
-					<LimitedCapacity>false</LimitedCapacity>
-					<Capacity><![CDATA[10]]></Capacity>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
-				<QueueLine>
-					<Id>1704207572239</Id>
-					<Name><![CDATA[serpentineQueue3]]></Name>
-					<X>520</X><Y>249.776</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
-					<Reversed>false</Reversed>
-					<LimitedCapacity>false</LimitedCapacity>
-					<Capacity><![CDATA[10]]></Capacity>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
-				<QueueLine>
-					<Id>1704207572241</Id>
-					<Name><![CDATA[serpentineQueue4]]></Name>
-					<X>520</X><Y>269.025</Y>
-					<Label><X>10</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
-					<Reversed>false</Reversed>
-					<LimitedCapacity>false</LimitedCapacity>
-					<Capacity><![CDATA[10]]></Capacity>
-					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
 				<ServicePoint>
-					<Id>1704222233485</Id>
+					<Id>1704731335596</Id>
 					<Name><![CDATA[servicePoint5]]></Name>
 					<X>600.109</X><Y>289.976</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -1996,7 +1971,7 @@
 					<Rotation>0</Rotation>
 				</ServicePoint>
 				<ServicePoint>
-					<Id>1704222234010</Id>
+					<Id>1704731335600</Id>
 					<Name><![CDATA[servicePoint6]]></Name>
 					<X>600.109</X><Y>309.971</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -2009,8 +1984,123 @@
 					<QueueChoicePolicy>CLOSEST_QUEUE_STRICT</QueueChoicePolicy>
 					<Rotation>0</Rotation>
 				</ServicePoint>
-				<QueueLine>
-					<Id>1704222234996</Id>
+				<QueueSerpentine>
+					<Id>1704731524358</Id>
+					<Name><![CDATA[serpentineQueue]]></Name>
+					<X>520</X><Y>190</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<Z>0</Z>			
+					<Reversed>false</Reversed>
+					<LimitedCapacity>false</LimitedCapacity>
+					<Capacity><![CDATA[10]]></Capacity>
+					<Points>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
+					</Points>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524360</Id>
+					<Name><![CDATA[serpentineQueue1]]></Name>
+					<X>520</X><Y>209.249</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<Z>0</Z>			
+					<Reversed>false</Reversed>
+					<LimitedCapacity>false</LimitedCapacity>
+					<Capacity><![CDATA[10]]></Capacity>
+					<Points>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
+					</Points>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524362</Id>
+					<Name><![CDATA[serpentineQueue2]]></Name>
+					<X>520</X><Y>229.512</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<Z>0</Z>			
+					<Reversed>false</Reversed>
+					<LimitedCapacity>false</LimitedCapacity>
+					<Capacity><![CDATA[10]]></Capacity>
+					<Points>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
+					</Points>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524364</Id>
+					<Name><![CDATA[serpentineQueue3]]></Name>
+					<X>520</X><Y>249.776</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<Z>0</Z>			
+					<Reversed>false</Reversed>
+					<LimitedCapacity>false</LimitedCapacity>
+					<Capacity><![CDATA[10]]></Capacity>
+					<Points>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
+					</Points>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524366</Id>
+					<Name><![CDATA[serpentineQueue4]]></Name>
+					<X>520</X><Y>269.025</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<Z>0</Z>			
+					<Reversed>false</Reversed>
+					<LimitedCapacity>false</LimitedCapacity>
+					<Capacity><![CDATA[10]]></Capacity>
+					<Points>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
+					</Points>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524368</Id>
 					<Name><![CDATA[queueLine]]></Name>
 					<X>520</X><Y>289</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -2018,22 +2108,22 @@
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
+					<Z>0</Z>			
 					<Reversed>false</Reversed>
 					<LimitedCapacity>false</LimitedCapacity>
 					<Capacity><![CDATA[10]]></Capacity>
 					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
 					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
-				<QueueLine>
-					<Id>1704222235395</Id>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
+				<QueueSerpentine>
+					<Id>1704731524370</Id>
 					<Name><![CDATA[queueLine1]]></Name>
 					<X>520</X><Y>309</Y>
 					<Label><X>10</X><Y>0</Y></Label>
@@ -2041,25 +2131,25 @@
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>false</ShowLabel>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<Z>0</Z>
+					<Z>0</Z>			
 					<Reversed>false</Reversed>
 					<LimitedCapacity>false</LimitedCapacity>
 					<Capacity><![CDATA[10]]></Capacity>
 					<Points>
-						<Point><X>0</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>25</X><Y>0</Y></Point>
-						<Point><X>60</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
-						<Point><X>35</X><Y>0</Y></Point>
+						<Point><X>0</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>0</X><Y>10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>0</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>-10</Y><Z>0</Z></Point>
+						<Point><X>60</X><Y>10</Y><Z>0</Z></Point>
 					</Points>
-					<ExceededQueuePolicy>EXTEND_QUEUE_TO_THE_FREE_SPACE</ExceededQueuePolicy>
-				</QueueLine>
+					<BeltBarrierColor>-3308225</BeltBarrierColor>
+				</QueueSerpentine>
 			</Presentation>
 
 					<Z>0</Z>
 					<Type>POINT</Type>
-					<QueueType>LINE</QueueType>
+					<QueueType>SERPENTINE</QueueType>
 					<Bidirectional>false</Bidirectional>
 					<WaitingAreaEnabled>false</WaitingAreaEnabled>
 					<QueueColor>-16744448</QueueColor>
@@ -2212,83 +2302,6 @@ else densityMap.hide();]]></ActionCode>
 					<Dy>280</Dy>
 					<Direction>left</Direction>
 				</FlowStatistics>
-    			<TimePlot>
-					<Id>1702486359943</Id>
-					<Name><![CDATA[plot]]></Name>
-					<X>450.4</X><Y>620</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<AutoUpdate>true</AutoUpdate>
-					<OccurrenceAtTime>true</OccurrenceAtTime>
-					<OccurrenceDate>1702540800000</OccurrenceDate>
-					<OccurrenceTime Class="CodeUnitValue">
-						<Code><![CDATA[0]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</OccurrenceTime>
-					<RecurrenceCode Class="CodeUnitValue">
-						<Code><![CDATA[1]]></Code>
-						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
-					</RecurrenceCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Width>549.5992714025501</Width>
-					<Height>210</Height>
-					<BackgroundColor/>
-					<BorderColor/>
-					<ChartArea>
-						<XOffset>50</XOffset>
-						<YOffset>30</YOffset>
-						<Width>469.59927140255013</Width>
-						<Height>110</Height>
-						<BackgroundColor>-1</BackgroundColor>
-						<BorderColor>-16777216</BorderColor>
-						<GridColor>-12566464</GridColor>
-					</ChartArea>
-					<Legend>
-						<Place>SOUTH</Place>
-						<TextColor>-16777216</TextColor>
-						<Size>40</Size>
-					</Legend>
-					<Labels>
-						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
-						<VerLabelsPosition>DEFAULT</VerLabelsPosition>
-						<TextColor>-12566464</TextColor>
-					</Labels>
-					<ShowLegend>true</ShowLegend>
-					<TimeWindowsMovementType>MOVEMENT_WITH_TIME</TimeWindowsMovementType>		
-					<TimeWindowUnits>MODEL_TIME_UNIT</TimeWindowUnits>
-					<VerScaleFromExpression><![CDATA[0]]></VerScaleFromExpression>
-					<VerScaleToExpression><![CDATA[1]]></VerScaleToExpression>
-					<VerScaleType>AUTO</VerScaleType>
-					<DrawLine>true</DrawLine>
-					<Interpolation>LINEAR</Interpolation>
-					<DatasetExpression>  
-						<Title><![CDATA[Customer Comming]]></Title>
-					<Id>1702486361672</Id>
-					<Expression><![CDATA[my_dataset]]></Expression>
-					<Color>-16744448</Color>
-					<Expression2><![CDATA[newCustomer.traffic()]]></Expression2>
-					<Expression2Flag>true</Expression2Flag>
-						<PointStyle>NONE</PointStyle>
-						<LineWidth>1.0</LineWidth>
-					</DatasetExpression>
-					<DatasetExpression>  
-						<Title><![CDATA[Served Customer]]></Title>
-					<Id>1702487001406</Id>
-					<Expression><![CDATA[my_dataset1]]></Expression>
-					<Color>-65536</Color>
-					<Expression2><![CDATA[finishedChecks.traffic()]]></Expression2>
-					<Expression2Flag>true</Expression2Flag>
-						<PointStyle>NONE</PointStyle>
-						<LineWidth>1.0</LineWidth>
-					</DatasetExpression>
-					<SamplesToKeep>100</SamplesToKeep>
-					<TimeWindowExpression><![CDATA[100]]></TimeWindowExpression>
-					<FillAreaUnderLine>false</FillAreaUnderLine>
-					<LabelFormat>MODEL_TIME_UNITS</LabelFormat>
-    			</TimePlot>
 				<RoundedRectangle>
 					<Id>1702486596049</Id>
 					<Name><![CDATA[roundRectangle]]></Name>
@@ -2413,14 +2426,14 @@ else densityMap.hide();]]></ActionCode>
 						<LineWidth>1.0</LineWidth>
 					</DatasetExpression>
 					<SamplesToKeep>8000</SamplesToKeep>
-					<TimeWindowExpression><![CDATA[7800]]></TimeWindowExpression>
+					<TimeWindowExpression><![CDATA[8000]]></TimeWindowExpression>
 					<FillAreaUnderLine>false</FillAreaUnderLine>
 					<LabelFormat>MODEL_TIME_UNITS</LabelFormat>
     			</TimePlot>
 				<Text>
 					<Id>1704210272287</Id>
 					<Name><![CDATA[text1]]></Name>
-					<X>40</X><Y>910</Y>
+					<X>20</X><Y>910</Y>
 					<Label><X>0</X><Y>-10</Y></Label>
 					<PublicFlag>true</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2438,6 +2451,83 @@ else densityMap.hide();]]></ActionCode>
 					</Font>
 					<Alignment>LEFT</Alignment>
 				</Text>
+    			<TimePlot>
+					<Id>1704733752191</Id>
+					<Name><![CDATA[plot2]]></Name>
+					<X>450</X><Y>600</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<AutoUpdate>true</AutoUpdate>
+					<OccurrenceAtTime>true</OccurrenceAtTime>
+					<OccurrenceDate>1704268800000</OccurrenceDate>
+					<OccurrenceTime Class="CodeUnitValue">
+						<Code><![CDATA[0]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</OccurrenceTime>
+					<RecurrenceCode Class="CodeUnitValue">
+						<Code><![CDATA[1]]></Code>
+						<Unit Class="TimeUnits"><![CDATA[SECOND]]></Unit>
+					</RecurrenceCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Width>549.5992714025501</Width>
+					<Height>210</Height>
+					<BackgroundColor/>
+					<BorderColor/>
+					<ChartArea>
+						<XOffset>50</XOffset>
+						<YOffset>30</YOffset>
+						<Width>469.59927140255013</Width>
+						<Height>120</Height>
+						<BackgroundColor>-1</BackgroundColor>
+						<BorderColor>-16777216</BorderColor>
+						<GridColor>-12566464</GridColor>
+					</ChartArea>
+					<Legend>
+						<Place>SOUTH</Place>
+						<TextColor>-16777216</TextColor>
+						<Size>30</Size>
+					</Legend>
+					<Labels>
+						<HorLabelsPosition>DEFAULT</HorLabelsPosition>
+						<VerLabelsPosition>DEFAULT</VerLabelsPosition>
+						<TextColor>-12566464</TextColor>
+					</Labels>
+					<ShowLegend>true</ShowLegend>
+					<TimeWindowsMovementType>MOVEMENT_WITH_TIME</TimeWindowsMovementType>		
+					<TimeWindowUnits>MODEL_TIME_UNIT</TimeWindowUnits>
+					<VerScaleFromExpression><![CDATA[0]]></VerScaleFromExpression>
+					<VerScaleToExpression><![CDATA[400]]></VerScaleToExpression>
+					<VerScaleType>FIXED</VerScaleType>
+					<DrawLine>true</DrawLine>
+					<Interpolation>LINEAR</Interpolation>
+					<DatasetExpression>  
+						<Title><![CDATA[wait time standard visitor]]></Title>
+					<Id>1704733752188</Id>
+					<Expression><![CDATA[queueTimesStandard]]></Expression>
+					<Color>-65536</Color>
+					<Expression2><![CDATA[finishedChecks.traffic()]]></Expression2>
+					<Expression2Flag>false</Expression2Flag>
+						<PointStyle>NONE</PointStyle>
+						<LineWidth>1.0</LineWidth>
+					</DatasetExpression>
+					<DatasetExpression>  
+						<Title><![CDATA[wait time subscriber]]></Title>
+					<Id>1704734368164</Id>
+					<Expression><![CDATA[queueTimesSubscriber]]></Expression>
+					<Color>-16744448</Color>
+					<Expression2><![CDATA[queueTimesSubscriber]]></Expression2>
+					<Expression2Flag>false</Expression2Flag>
+						<PointStyle>NONE</PointStyle>
+						<LineWidth>1.0</LineWidth>
+					</DatasetExpression>
+					<SamplesToKeep>8000</SamplesToKeep>
+					<TimeWindowExpression><![CDATA[8000]]></TimeWindowExpression>
+					<FillAreaUnderLine>false</FillAreaUnderLine>
+					<LabelFormat>MODEL_TIME_UNITS</LabelFormat>
+    			</TimePlot>
 			</Presentation>
 
 				</Level>

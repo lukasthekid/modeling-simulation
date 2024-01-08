@@ -89,10 +89,10 @@
     which sends each visitor directly to an alternative sink until the delay time has passed (the condition also makes sure that at least 2400 agents remain).
     The discarded visitors need to be considered in the total agents emitted by the source and the interarrival rate. The parameters for the subscriber-source are adapted as follows:
     * subscribers arriving earliest 1.5h before:
-      * interarrival rate: **possion(2.25)**
+      * interarrival rate: **poisson(2.25)**
       * max. number of arrivals: **3200**
     * subscribers arriving earliest 1h before:
-      * interarrival rate: **possion(1.5)**
+      * interarrival rate: **poisson(1.5)**
       * max. number of arrivals: **4800**
 * number of fans entering stadium after kickoff (average):
   * (a) 93.9
@@ -105,6 +105,11 @@
   * (b) 2991.8
   * (c) 2999.5
   * (d) 2651.4
+* mean waiting time in queue in seconds (standard visitor, season ticket holder)
+  * (a) 
+  * (b) 
+  * (c) 
+  * (d) 
 
 
 ### Task 5
