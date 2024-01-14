@@ -49,7 +49,10 @@
 * determine number of minutes the last fan will miss the kickoff, if total number of visitors exceeds **8000**
 
 ->
-* 
+* again **40%** season ticket holders
+* with Monte Carlo simulation with 10 retries: on average last fan enters 1221.9 s after kickoff
+* Since in this scenario agents do not change queues after deciding for one, it is possible that at the end one queues still holds agents, while the others are empty. This drags the overall service time. In reality people would change the queue when they see that another one is free.
+
 
 ### Task 4
 * effects of prioritizing season ticket holders:
