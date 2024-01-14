@@ -82,7 +82,15 @@
     ```
   * problem in AnyLogic-model: Agents seem to decide for a queue right when spawning instead of near to the queues. Therefore, often a chosen queue has turned into the longest queue, when the agent has arrived at the queue.
   * results are determined with Monte-Carlo-Simulation with 10 iterations and averaged
-* implementation of late arrival: Delaying the spawning of agents from a PedSource does not seem to be possible. An alternative idea is to discard each visitor until a certain timestep. For this a selectOutput-node was used with a condition like
+* implementation of late arrival: Delaying the spawning of agents from a PedSource does not seem to be possible. An alternative idea is to discard each visitor until a certain timestep. For this a selectOutput-node was used with the condition  
+    $t > t_d || n_d > (n_t - n_s)$  
+    with  
+    $t$ current timestep  
+    $t_d$ time subscribers arrive delayed (1800 or 3600)  
+    $n_d$ number of pedestrians that have been discarded at timestep t  
+    $n_t$ total number of subscribers (actual number of subscribers + subscribers that will be discarded, 3200 or 4800)  
+    $n_s$ actual number of expected subscribers (2400)  
+    implemented like
     ```
     time() > 1800 || pedSink2.countPeds() > 800
     ```
@@ -95,21 +103,21 @@
       * interarrival rate: **poisson(1.5)**
       * max. number of arrivals: **4800**
 * number of fans entering stadium after kickoff (average):
-  * (a) 93.9
-  * (b) 164.4
-  * (c) 256.6
-  * (d) 890.0
+  * (a) 78.0
+  * (b) 119.1
+  * (c) 152.0
+  * (d) 805.7
     in this case the service-points are clearly overwhelmed
 * mean check-ins per hour:
-  * (a) 3007.9
-  * (b) 2991.8
-  * (c) 2999.5
-  * (d) 2651.4
+  * (a) 3010.5
+  * (b) 2988.8
+  * (c) 3011.9
+  * (d) 2703.5
 * mean waiting time in queue in seconds (standard visitor, season ticket holder)
-  * (a) 
-  * (b) 
-  * (c) 
-  * (d) 
+  * (a) 31.3, 23.0
+  * (b) 59.5, 22.1
+  * (c) 59.9, 23.9
+  * (d) 92.6, 52.5
 
 
 ### Task 5
